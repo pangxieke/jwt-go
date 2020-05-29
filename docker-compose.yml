@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: xxx/pangxieke/jwt-go:8898f85
+    environment:
+      - SECRET=dc3dc8a96e7053c54ee5267363f9cd803912ea82
+    ports:
+      - 8080:8080

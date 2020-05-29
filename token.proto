@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+package cloudream.token.v1;
+option go_package = "pb";
+
+service TokenService {
+    rpc Create(CreateRequest) returns (Token) {}
+
+    rpc Parse(Token) returns (TokenPayload) {}
+
+    rpc Revoke(Token) returns (google.protobuf.Empty) {}
+}
+
+message CreateRequest {
+    // 令牌的主题，包含颁发的对象，格式为：`<服务>,<app id>`，比如小程序服务：
+    string subject = 1;
+    // 用户的ID
+    string userId = 2;
+    google.protobuf.Timestamp expired_at = 3;
+    // 需要承载的其它数据，为JSON字符串
+    string data = 4;
+}
+
+message Token {
+    string token = 1;
+}
+
+message TokenPayload {
+    string subject = 1;
+    string userId = 2;
+    google.protobuf.Timestamp expired_at = 3;
+    string data = 4;
+}
